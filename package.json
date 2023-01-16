@@ -1,0 +1,26 @@
+{
+  "name": "sparkbankweb",
+  "version": "1.0.0",
+  "description": "Task1 banking Website by Keerti Gupta",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Keertijanm/SparkBankWeb.git"
+  },
+  "author": "Keerti Gupta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Keertijanm/SparkBankWeb/issues"
+  },
+  "homepage": "https://github.com/Keertijanm/SparkBankWeb#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "ejs-mate": "^4.0.0",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.3"
+  },
+  "devDependencies": {}
+}
