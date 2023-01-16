@@ -1,14 +1,34 @@
 const mongoose = require("mongoose");
 const Customer = require("./models/user");
 
-mongoose.connect("mongodb://localhost:27017/banking", { useUnifiedTopology: true, useNewUrlParser: true })
-    .then(() => {
-        console.log("connected");
-    })
-    .catch((err) => {
-        console.log("error", err);
-    })
+const url =
+  "mongodb+srv://keertigupta:1835Ja0133Nm@datab.wet1xhr.mongodb.net/test";
 
+try {
+  mongoose.connect(url, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  });
+} catch (error) {
+  handleError(error);
+}
+process.on("unhandledRejection", (error) => {
+  console.log("unhandledRejection", error.message);
+});
+/*
+mongoose
+  .connect(
+    "mongodb+srv://keertigupta:1835Ja0133Nm@datab.wet1xhr.mongodb.net/test",
+    { useUnifiedTopology: true, useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log("connected");
+  })
+  .catch((err) => {
+    console.log("error", err);
+  });
+
+*/
 const v = async () => {
     await Customer.deleteMany({});
     await Customer.insertMany([

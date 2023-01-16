@@ -10,10 +10,24 @@ const AppError = require("./views/AppError");
 
 const PORT = process.env.PORT || 3000;
 
+const url =
+  "mongodb+srv://keertigupta:1835Ja0133Nm@datab.wet1xhr.mongodb.net/test";
+
+try {
+  mongoose.connect(url, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  });
+} catch (error) {
+  handleError(error);
+}
+process.on("unhandledRejection", (error) => {
+  console.log("unhandledRejection", error.message);
+});
+/*
 mongoose
   .connect(
-    "mongodb+srv://keertigupta:1835Ja0133Nm@cluster.dxplzfh.mongodb.net/test?retryWrites=true&w=majority" ||
-      "mongodb://localhost:27017/banking",
+    "mongodb+srv://keertigupta:1835Ja0133Nm@datab.wet1xhr.mongodb.net/test",
     { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }
   )
   .then(() => {
@@ -22,7 +36,8 @@ mongoose
   .catch((err) => {
     console.log("error", err);
   });
-
+  
+*/
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.urlencoded({ extended: true }));
 
@@ -103,7 +118,10 @@ app.post("/customer", wrapAsync(async(req, res, next) => {
         await t.save() //If we want to use populate we need to use this
         cus.transactions.push(f);
         await cus.save();
-        const d = new Datab({ Date: Date(), payment: `${b.username} sends $${Amount} to ${cus.username}` });
+        const d = new Datab({
+          Date: Date(),
+          payment: `${b.username} sends $${Amount} to ${cus.username}`,
+        });
         await d.save();
         b.transactions.push(t);
         await b.save();
@@ -117,7 +135,6 @@ app.post("/customer", wrapAsync(async(req, res, next) => {
         throw new AppError("Amount should be positive", 500);
     }
 }));
-
 app.get("/transactions", async(req, res) => {
     const a = await Datab.find({});
     res.render("transactions", { a });
